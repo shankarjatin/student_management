@@ -43,6 +43,17 @@ app.get("/student/:roll_no" , async(req,res)=>{
     }
 })
 
+ app.patch("/student/:roll_no" , async(req,res) => {
+    try{
+        const _id = req.params.roll_no;
+        const updateData = await Student.findOneAndUpdate({roll_no: _id}, req.body ,{
+            new:true
+        });
+        res.send(updateData);
+    }catch(e){
+res.status(400).send();
+    }
+ })
 
 
 
