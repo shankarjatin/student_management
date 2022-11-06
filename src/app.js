@@ -55,6 +55,20 @@ res.status(400).send();
     }
  })
 
+app.delete("/student/:roll_no",  async(req,res) =>{
+    try{
+        const _id =req.params.roll_no;
+       const delete_student =  await Student.deleteOne({roll_no: _id});
+       if(!req.params.roll_no){
+        return res.status(400).send();
+       }
+       else{
+        res.send(delete_student);
+       }
+    }catch(e){
+res.status(500).send(e);
+    }
+})
 
 
 app.listen(port , ()=>{console.log("server is up");});
