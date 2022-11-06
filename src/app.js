@@ -69,6 +69,16 @@ app.delete("/student/:roll_no",  async(req,res) =>{
 res.status(500).send(e);
     }
 })
+ app.get("/students/toppers" , async(req,res)=>{
+    try{
+        const result = await Student.find().sort({CGPA:-1});
+        res.send(result);
+        console.log(result);
+        
+    }catch(e){
+        res.send(e);
+    }
+ })
 
 
 app.listen(port , ()=>{console.log("server is up");});
