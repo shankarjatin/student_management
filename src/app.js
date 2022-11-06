@@ -22,9 +22,28 @@ app.post("/students" , (req,res)=>{
 })
 app.get("/students" ,async(req,res)=>{
     try{
-      const students_data=  Student.find();
+      const students_data = await Student.find();
+      res.send(students_data);
     }catch(e){
         res.status(400).send(e);
     }
 })
+app.get("/student/:roll_no" , async(req,res)=>{
+    try{
+        const _id = req.params.roll_no;
+        const student_data1 = await Student.find({roll_no: _id});
+        console.log(student_data1);
+        if(!student_data1){
+            return res.status(404).send();
+        }else{
+            res.send(student_data1)
+        }
+    }catch(e){
+        res.send(e);
+    }
+})
+
+
+
+
 app.listen(port , ()=>{console.log("server is up");});
