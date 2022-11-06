@@ -4,30 +4,63 @@ const Student = require("./models/students");
 const port = process.env.PORT || 9000;
 const mongoose = require ("mongoose");
 const DB = "mongodb://localhost:27017/student_management1";
+
+
+
+
+
+app.use(express.static('public'));
 app.use(express.json());
+
+app.use(express.urlencoded({extended:false}));
+
 mongoose.connect(DB).then(()=>{
     console.log("connection successful");
 }).catch((err) => console.log("connection failed") );
 
 
-
+app.get("/students" ,(req,res)=>{
+    res.sendFile(__dirname + "/models/index.html");
+})
 app.post("/students" , (req,res)=>{
-    console.log(req.body);
-    const student_data = new Student(req.body);
+    
+    const student_data = new Student({
+        name: req.body.name,
+        student_number: req.body.student_number,
+        roll_no: req.body.roll_number,
+        branch: req.body.branch,
+        city: req.body.city,
+        CGPA: req.body.cgpa
+    });
    student_data.save().then(()=>{
-   res.send(student_data);
+   res.send(student_data); 
    }).catch((e)=>{
     res.send(e);
    })
 })
-app.get("/students" ,async(req,res)=>{
-    try{
-      const students_data = await Student.find();
-      res.send(students_data);
-    }catch(e){
-        res.status(400).send(e);
-    }
-})
+
+
+
+// app.post("/students" , (req,res)=>{
+//     console.log(req.body);
+//     const student_data = new Student(req.body);
+//    student_data.save().then(()=>{
+//    res.send(student_data);
+//    }).catch((e)=>{
+//     res.send(e);
+//    })
+// })
+
+
+// app.get("/students" ,async(req,res)=>{
+//     try{
+//       const students_data = await Student.find();
+//       res.send(students_data);
+//     }catch(e){
+//         res.status(400).send(e);
+//     }
+// })
+
 app.get("/student/:roll_no" , async(req,res)=>{
     try{
         const _id = req.params.roll_no;
@@ -79,6 +112,15 @@ res.status(500).send(e);
         res.send(e);
     }
  })
-
+ app.get("/students/bottomers" , async(req,res)=>{
+    try{
+        const result = await Student.find().sort({CGPA:1});
+        res.send(result);
+        console.log(result);
+        
+    }catch(e){
+        res.send(e);
+    }
+ })
 
 app.listen(port , ()=>{console.log("server is up");});

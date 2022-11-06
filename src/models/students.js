@@ -34,7 +34,7 @@ const studentSchema = new mongoose.Schema({
 
       CGPA:{
         type:Number,
-        min:2,
+        min:1,
         required:true,
         
       }
