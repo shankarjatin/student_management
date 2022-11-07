@@ -63,8 +63,8 @@ app.get("/student/:roll_no" , async(req,res)=>{
         const _id = req.params.roll_no;
         const student_data1 = await Student.find({roll_no: _id});
         console.log(student_data1);
-        if(!student_data1){
-            return res.status(404).send();
+        if(!student_data1.length){
+          res.status(404).send("NO data for this Roll number");
         }else{
             res.send(student_data1)
         }
