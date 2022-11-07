@@ -88,6 +88,35 @@ res.status(400).send();
     }
  })
 
+app.put("/student/:roll_no", async(req,res)=>{
+    let data = await Student.updateOne(
+        req.params,
+        {
+            $set:req.body
+        }
+    );
+    res.send(data);
+})
+
+
+
+
+
+ app.delete("/students",  async(req,res) =>{
+    try{
+       
+       const delete_student =  await Student.deleteMany();
+
+        res.send(delete_student);
+       }
+    catch(e){
+res.status(500).send(e);
+    }
+})
+
+
+
+
 app.delete("/student/:roll_no",  async(req,res) =>{
     try{
         const _id =req.params.roll_no;
