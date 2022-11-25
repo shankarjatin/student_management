@@ -4,7 +4,7 @@ const Student = require("./models/students");
 const port = process.env.PORT || 9000;
 const mongoose = require ("mongoose");
 
-const DB = "mongodb+srv://shankarjatin:JaiHanumanji@cluster0.b1no4tl.mongodb.net/studentdata?retryWrites=true&w=majority"
+const DB = "mongodb://localhost:27017/student_management1";
 
 app.use(express.static('public'));
 app.use(express.json());
