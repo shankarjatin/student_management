@@ -1,10 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const Student = require("./models/students");
 const port = process.env.PORT || 9000;
 const mongoose = require ("mongoose");
-
-const DB = "mongodb://localhost:27017/student_management1";
+const DB = process.env.DB_URI
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -26,7 +26,7 @@ app.post("/students" , (req,res)=>{
     const student_data = new Student({
         name: req.body.name,
         student_number: req.body.student_number,
-        roll_no: req.body.roll_number,
+        roll_no: req.body.roll_no,
         branch: req.body.branch,
         city: req.body.city,
         CGPA: req.body.cgpa
