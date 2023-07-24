@@ -10,21 +10,16 @@ const studentSchema = new mongoose.Schema({
           },
       student_number: {
         type:Number,
-        min:4,
-        required:true,
-        unique:true
+        required:true
       },
       roll_no: {
         type:Number,
-        min:4,
-        required:true,
-        unique:true
+        required:true 
       },
 
       branch: {
         type:String,
         required:true,
-        minlenght:2
     },
   
       city: {
