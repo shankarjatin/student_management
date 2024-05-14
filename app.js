@@ -4,12 +4,17 @@ const app = express();
 const Student = require("./models/students");
 const port = process.env.PORT || 9000;
 const mongoose = require ("mongoose");
+const cron = require("node-cron")
 const DB = process.env.DB_URI
 
 app.use(express.static('public'));
 app.use(express.json());
 
 app.use(express.urlencoded({extended:false}));
+cron.schedule('*/10 * * * * *', () => {
+    console.log('This message will be printed to the console every 10 seconds');
+  });
+
 
 mongoose.connect(DB).then(()=>{
     console.log("connection successful");
